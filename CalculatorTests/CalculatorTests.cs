@@ -44,13 +44,20 @@ namespace CalculatorTests
         [TestCase((float)6, (float)3, (float)2)]
         [TestCase((float)-6, (float)-3, (float)2)]
         [TestCase((float)-6, (float)3, (float)-2)]
-        public void DivideTest(float n1, float n2, float? r)
+        public void DivideTest(float n1, float n2, float r)
         {
-
-            if (n2 == 0) { Assert.Throws<DivideByZeroException>(() => Calculator.Divide(n1, n2)); }
+            Assume.That(n2, Is.Not.EqualTo(0));
             float result = Calculator.Divide(n1, n2);
             Assert.That(result, Is.EqualTo(r));
             
         }
+
+        [Test]
+        [TestCase(5)]
+        public void DivideByZeroTest(float n)
+        {
+            Assert.Throws<DivideByZeroException>(() => Calculator.Divide(n, 0), "NON SI PUÒ DIVIDERE PER ZERO");
+        }
+
     }
 }

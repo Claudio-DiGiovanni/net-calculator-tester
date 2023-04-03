@@ -1,2 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using static net_calculator_tester.Calculator;
+using static System.Console;
+
+WriteLine(Divide(4,0));
