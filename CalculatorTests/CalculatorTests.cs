@@ -11,25 +11,71 @@ namespace CalculatorTests
         }
 
         [Test]
-        public void Add_returnSum()
+        public void Add_TwoPositiveNumbers_ReturnsPositiveResult()
         {
-            var num1 = 5;
-            var num2 = 5;
-            Assert.DoesNotThrow(() => { Calculator.Add(num1,num2); });
+            float result = Calculator.Add(2, 3);
+            Assert.That(result, Is.EqualTo(5));
+        }
+
+        [Test]
+        public void Add_TwoNegativeNumbers_ReturnsNegativeResult()
+        {
+            float result = Calculator.Add(-2, -3);
+            Assert.That(result, Is.EqualTo(-5));
+        }
+
+        [Test]
+        public void Add_PositiveAndNegativeNumbers_ReturnsCorrectResult()
+        {
+            float result = Calculator.Add(-2, 3);
+            Assert.That(result, Is.EqualTo(1));
         }
         [Test]
-        public void Subtract_returnSubtraction()
+        public void Subtract_TwoPositiveNumbers_ReturnsPositiveResult()
         {
-            var num1 = 5;
-            var num2 = 10;
-            Assert.DoesNotThrow(() => { Calculator.Subtract(num1, num2); });
+            float result = Calculator.Subtract(3, 2);
+            Assert.That(result, Is.EqualTo(1));
         }
+
         [Test]
-        public void Multiply_returnMultiply()
+        public void Subtract_TwoNegativeNumbers_ReturnsNegativeResult()
         {
-            var num1 = 5;
-            var num2 = 10;
-            Assert.DoesNotThrow(() => { Calculator.Multiply(num1, num2); });
+            float result = Calculator.Subtract(-3, -2);
+            Assert.That(result, Is.EqualTo(-1));
         }
-    }
+
+        [Test]
+        public void Subtract_PositiveAndNegativeNumbers_ReturnsCorrectResult()
+        {
+            float result = Calculator.Subtract(-3, 2);
+            Assert.That(result, Is.EqualTo(-5));
+        }
+
+        [Test]
+        public void Multiply_TwoPositiveNumbers_ReturnsPositiveResult()
+        {
+            float result = Calculator.Multiply(2, 3);
+            Assert.That(result, Is.EqualTo(6));
+        }
+
+        [Test]
+        public void Multiply_TwoNegativeNumbers_ReturnsPositiveResult()
+        {
+            float result = Calculator.Multiply(-2, -3);
+            Assert.That(result, Is.EqualTo(6));
+        }
+
+        [Test]
+        public void Multiply_PositiveAndNegativeNumbers_ReturnsNegativeResult()
+        {
+            float result = Calculator.Multiply(-2, 3);
+            Assert.That(result, Is.EqualTo(-6));
+        }
+
+        [Test]
+            public void Divide_divisionByZero()
+            {
+                Assert.Throws<DivideByZeroException>(() => Calculator.Divide(10, 0));
+            }
+        }
 }
