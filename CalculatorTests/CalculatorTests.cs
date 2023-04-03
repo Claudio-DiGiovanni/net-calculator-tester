@@ -1,81 +1,56 @@
 using net_calculator_tester;
+using System.Runtime.ConstrainedExecution;
 
 namespace CalculatorTests
 {
     public class CalculatorTests
     {
-         
+
         [SetUp]
         public void Setup()
         {
         }
 
         [Test]
-        public void Add_TwoPositiveNumbers_ReturnsPositiveResult()
+        [TestCase(2, 3, 5)]
+        [TestCase(-2, -3, -5)]
+        [TestCase(-2, 3, 1)]
+        public void AddTest(float n1, float n2, float r)
         {
-            float result = Calculator.Add(2, 3);
-            Assert.That(result, Is.EqualTo(5));
+            float result = Calculator.Add(n1, n2);
+            Assert.That(result, Is.EqualTo(r));
+        }
+        [Test]
+        [TestCase(3, 2, 1)]
+        [TestCase(-2, -3, 1)]
+        [TestCase(-2, 3, -5)]
+        public void SubtractTest(float n1, float n2, float r)
+        {
+            float result = Calculator.Subtract(n1, n2);
+            Assert.That(result, Is.EqualTo(r));
         }
 
         [Test]
-        public void Add_TwoNegativeNumbers_ReturnsNegativeResult()
+        [TestCase(2, 3, 6)]
+        [TestCase(-2, -3, 6)]
+        [TestCase(-2, 3, -6)]
+        public void MultiplyTest(float n1, float n2, float r)
         {
-            float result = Calculator.Add(-2, -3);
-            Assert.That(result, Is.EqualTo(-5));
+            float result = Calculator.Multiply(n1, n2);
+            Assert.That(result, Is.EqualTo(r));
         }
 
         [Test]
-        public void Add_PositiveAndNegativeNumbers_ReturnsCorrectResult()
+        [TestCase((float)6, (float)3, (float)2)]
+        [TestCase((float)-6, (float)-3, (float)2)]
+        [TestCase((float)-6, (float)3, (float)-2)]
+        public void DivideTest(float n1, float n2, float? r)
         {
-            float result = Calculator.Add(-2, 3);
-            Assert.That(result, Is.EqualTo(1));
-        }
-        [Test]
-        public void Subtract_TwoPositiveNumbers_ReturnsPositiveResult()
-        {
-            float result = Calculator.Subtract(3, 2);
-            Assert.That(result, Is.EqualTo(1));
-        }
 
-        [Test]
-        public void Subtract_TwoNegativeNumbers_ReturnsNegativeResult()
-        {
-            float result = Calculator.Subtract(-3, -2);
-            Assert.That(result, Is.EqualTo(-1));
+            if (n2 == 0) { Assert.Throws<DivideByZeroException>(() => Calculator.Divide(n1, n2)); }
+            float result = Calculator.Divide(n1, n2);
+            Assert.That(result, Is.EqualTo(r));
+            
         }
-
-        [Test]
-        public void Subtract_PositiveAndNegativeNumbers_ReturnsCorrectResult()
-        {
-            float result = Calculator.Subtract(-3, 2);
-            Assert.That(result, Is.EqualTo(-5));
-        }
-
-        [Test]
-        public void Multiply_TwoPositiveNumbers_ReturnsPositiveResult()
-        {
-            float result = Calculator.Multiply(2, 3);
-            Assert.That(result, Is.EqualTo(6));
-        }
-
-        [Test]
-        public void Multiply_TwoNegativeNumbers_ReturnsPositiveResult()
-        {
-            float result = Calculator.Multiply(-2, -3);
-            Assert.That(result, Is.EqualTo(6));
-        }
-
-        [Test]
-        public void Multiply_PositiveAndNegativeNumbers_ReturnsNegativeResult()
-        {
-            float result = Calculator.Multiply(-2, 3);
-            Assert.That(result, Is.EqualTo(-6));
-        }
-
-        [Test]
-            public void Divide_divisionByZero()
-            {
-                Assert.Throws<DivideByZeroException>(() => Calculator.Divide(10, 0));
-            }
-        }
+    }
 }
